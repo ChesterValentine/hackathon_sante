@@ -1,4 +1,30 @@
 <php
+
+$define(FACTEUR_RISQUE_OMEGANEMIE,0.33,true); //modifier la valeur du milieu
+$define(FACTEUR_RISQUE_UBIOTE,0.33,true); //modifier la valeur du milieu
+
+
+/*ces 3 variables forment l'omeganemie
+si ces trois valeurs sont bonnes l'omeganemie est égale à 0
+si une seule de ces valeurs est mauvaise l'omeganemie est égale à 1
+*/
+$RatioO6O3;//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true 
+$IndexO3;//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
+$AA_FPA;//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
+$omeganemie;
+
+
+/*ces 3 variables forment les Ubiotes
+si ces trois valeurs sont bonnes les Ubiotes est égale à 0
+si une seule de ces valeurs est mauvaise les Ubiotes est égale à 1
+*/
+$UbioteFB;//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
+$UbiotteDiversite;//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
+$UbioteRichesse;//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
+$Ubiotes;
+
+
+
 boolean bHomme;
 boolean bFemme;
 boolean bTraitement = $_POST('hypertension');
