@@ -11,7 +11,28 @@ si une seule de ces valeurs est mauvaise l'omeganemie est égale à 1
 $RatioO6O3;//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true 
 $IndexO3;//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
 $AA_FPA;//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
-$omeganemie;
+$omegapositif = 0;
+
+//test pour savoir si l'on prend en compte le facteur d'omeganemie dans le calcul
+if($RatioO6O3 >= 5)
+{
+    $omegapositif++;
+}
+if($IndexO3 < 6 || $IndexO3 > 8)
+{
+    $omegapositif++;
+}
+if(AA_FPA < 15)
+{
+    $omegapositif++;
+}
+
+$omeganemie = 0;
+if($omegapositif > 0)
+{
+  $omeganemie = 1;
+}
+
 
 
 /*ces 3 variables forment les Ubiotes
@@ -21,7 +42,27 @@ si une seule de ces valeurs est mauvaise les Ubiotes est égale à 1
 $UbioteFB;//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
 $UbiotteDiversite;//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
 $UbioteRichesse;//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
-$Ubiotes;
+$UbiotesPositif = 0;
+
+//test pour savoir si l'on prend en compte le facteur d'omeganemie dans le calcul
+if($UbioteFB) //info à recup
+{
+  $UbiotesPositif++;
+}
+if($UbiotteDiversite) // info à recup
+{
+  $UbiotesPositif++;
+}
+if(UbioteRichesse) // info à recup
+{
+  $UbiotesPositif++;
+}
+
+$Ubiotes = 0;
+if($$UbiotesPositif > 0)
+{
+  $Ubiotes = 1;
+}
 
 
 
