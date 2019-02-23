@@ -309,4 +309,28 @@ class Analysis
     {
         return $this->richness;
     }
+
+    /**
+     * Set user
+     *
+     * @param \Cardioscore\AccueilBundle\Entity\User $user
+     *
+     * @return Analysis
+     */
+    public function setUser(\Cardioscore\AccueilBundle\Entity\User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Cardioscore\AccueilBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 }
