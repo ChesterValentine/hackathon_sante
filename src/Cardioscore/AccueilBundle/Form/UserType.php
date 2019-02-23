@@ -22,8 +22,8 @@ class UserType extends AbstractType
             ->add('sex', ChoiceType::class, array(
                 'label' => 'Sexe : ',
                 'choices' => array(
-                    'homme' => true,
-                    'femme' => false
+                    'Homme' => true,
+                    'Femme' => false
                 ),
                 'required'=>true))
             ->add('birthDate', DateType::class, array(
@@ -42,8 +42,8 @@ class UserType extends AbstractType
             ->add('smoker', ChoiceType::class, array(
                 'label' => 'Fumeur : ',
                 'choices'   => array(
-                    'Oui'   => true,
-                    'Non'   => false
+                    'Fumeur'   => true,
+                    'Non fumeur'   => false
                 ))
             )
         ;

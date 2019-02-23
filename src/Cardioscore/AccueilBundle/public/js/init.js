@@ -1,5 +1,5 @@
 M.AutoInit();
 
 $(document).ready(function(){
-    $('select').material_select();
+    $('select').form_select();
 });

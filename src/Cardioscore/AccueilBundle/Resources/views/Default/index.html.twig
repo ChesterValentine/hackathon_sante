@@ -4,11 +4,15 @@
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+    <!-- JavaScript for: jQuery, angular, materialize, and angular-materialize. All of which are needed. -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.2.2/angular-materialize.min.js"></script>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <script src="../../../public/css/materialize.min.css"></script>
-    <script src="../../../public/css/materialize.css"></script>
     <script src="../../../public/css/style.css"></script>
     <title>CardioScore</title>
 </head>
@@ -33,11 +37,9 @@
     <div class="card-content">
         <div class="row s12">
             <div class="input-field s6">
-                {{ form_label(formUser.sex) }}
-                {{ form_widget(formUser.sex) }}
+                {{ form_widget(formUser.sex, {'attr': {'style': 'display: block'}}) }}
             </div>
             <div class="input-field s6">
-                {{ form_label(formUser.birthDate) }}
                 {{ form_widget(formUser.birthDate) }}
             </div>
         </div>
@@ -59,8 +61,7 @@
 
         <div class="row s12">
             <div class="input-field">
-                {{ form_label(formUser.smoker) }}
-                {{ form_widget(formUser.smoker) }}
+                {{ form_widget(formUser.smoker, {'attr': {'style': 'display: block'}}) }}
             </div>
         </div>
 
@@ -74,10 +75,6 @@
 
 {% block footer %}
 </div>
-<!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<script src="../../../public/js/materialize.min.js"></script>
-<script src="../../../public/js/materialize.js"></script>
 <script src="../../../public/js/init.js"></script>
 </body>
 </html>
