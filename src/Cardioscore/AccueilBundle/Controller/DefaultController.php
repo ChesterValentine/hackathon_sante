@@ -14,4 +14,12 @@ class DefaultController extends Controller
     {
         return $this->render('CardioscoreAccueilBundle:Default:index.html.twig');
     }
+
+    /**
+     * @Route("/ajax/calc", name="ajax_calc")
+     */
+    public function ajaxCalc($aUserDatas, $aAnalysisDatas)
+    {
+        return new JsonResponse(array('data' => json_encode(['test','test'])));
+    }
 }
