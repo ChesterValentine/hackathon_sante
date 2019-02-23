@@ -22,25 +22,60 @@ class Analysis
     private $id;
 
     /**
-     * @var int
+     * @var float
      *
-     * @ORM\Column(name="ratio_omega", type="integer")
+     * @ORM\Column(name="total_cholesterol", type="float")
+     */
+    private $total_cholesterol;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="hdl_cholesterol", type="float")
+     */
+    private $hdl_cholesterol;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="systolic_bp", type="float")
+     */
+    private $systolic_bp;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="treated_blood_pressure", type="boolean")
+     */
+    private $treated_blood_pressure;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="ratio_omega", type="float")
      */
     private $ratioOmega;
 
     /**
-     * @var int
+     * @var float
      *
-     * @ORM\Column(name="index_o3", type="integer")
+     * @ORM\Column(name="index_o3", type="float")
      */
     private $indexO3;
 
     /**
-     * @var int
+     * @var float
      *
-     * @ORM\Column(name="aa_epa", type="integer")
+     * @ORM\Column(name="aa_epa", type="float")
      */
     private $aaEpa;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="omeganemie", type="boolean")
+     */
+    private $omeganemie;
 
     /**
      * @var int
@@ -50,32 +85,46 @@ class Analysis
     private $ratioFd;
 
     /**
-     * @var int
+     * @var float
      *
-     * @ORM\Column(name="ratio_waist_weight", type="integer")
+     * @ORM\Column(name="ratio_waist_weight", type="float")
      */
     private $ratioWaistWeight;
 
     /**
-     * @var int
+     * @var bool
      *
-     * @ORM\Column(name="results", type="integer")
+     * @ORM\Column(name="ubiote", type="boolean")
      */
-    private $results;
+    private $ubiote;
 
     /**
-     * @var int
+     * @var bool
      *
-     * @ORM\Column(name="diversity", type="integer")
+     * @ORM\Column(name="ubiote_fb", type="boolean")
      */
-    private $diversity;
+    private $ubiote_fb;
 
     /**
-     * @var int
+     * @var bool
      *
-     * @ORM\Column(name="richness", type="integer")
+     * @ORM\Column(name="ubiote_diversity", type="boolean")
      */
-    private $richness;
+    private $ubiote_diversity;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="ubiote_richness", type="boolean")
+     */
+    private $ubiote_richness;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_date", type="date")
+     */
+    private $created_date;
 
     /**
 	 * @ORM\ManyToOne(targetEntity="Cardioscore\AccueilBundle\Entity\User", inversedBy="analysis")
@@ -92,245 +141,5 @@ class Analysis
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set ratioOmega
-     *
-     * @param integer $ratioOmega
-     *
-     * @return Analysis
-     */
-    public function setRatioOmega($ratioOmega)
-    {
-        $this->ratioOmega = $ratioOmega;
-
-        return $this;
-    }
-
-    /**
-     * Get ratioOmega
-     *
-     * @return int
-     */
-    public function getRatioOmega()
-    {
-        return $this->ratioOmega;
-    }
-
-    /**
-     * Set indexO3
-     *
-     * @param integer $indexO3
-     *
-     * @return Analysis
-     */
-    public function setIndexO3($indexO3)
-    {
-        $this->indexO3 = $indexO3;
-
-        return $this;
-    }
-
-    /**
-     * Get indexO3
-     *
-     * @return int
-     */
-    public function getIndexO3()
-    {
-        return $this->indexO3;
-    }
-
-    /**
-     * Set aaEpa
-     *
-     * @param integer $aaEpa
-     *
-     * @return Analysis
-     */
-    public function setAaEpa($aaEpa)
-    {
-        $this->aaEpa = $aaEpa;
-
-        return $this;
-    }
-
-    /**
-     * Get aaEpa
-     *
-     * @return int
-     */
-    public function getAaEpa()
-    {
-        return $this->aaEpa;
-    }
-
-    /**
-     * Set ratioFd
-     *
-     * @param integer $ratioFd
-     *
-     * @return Analysis
-     */
-    public function setRatioFd($ratioFd)
-    {
-        $this->ratioFd = $ratioFd;
-
-        return $this;
-    }
-
-    /**
-     * Get ratioFd
-     *
-     * @return int
-     */
-    public function getRatioFd()
-    {
-        return $this->ratioFd;
-    }
-
-    /**
-     * Set ratioWaistWeight
-     *
-     * @param integer $ratioWaistWeight
-     *
-     * @return Analysis
-     */
-    public function setRatioWaistWeight($ratioWaistWeight)
-    {
-        $this->ratioWaistWeight = $ratioWaistWeight;
-
-        return $this;
-    }
-
-    /**
-     * Get ratioWaistWeight
-     *
-     * @return int
-     */
-    public function getRatioWaistWeight()
-    {
-        return $this->ratioWaistWeight;
-    }
-
-    /**
-     * Set results
-     *
-     * @param integer $results
-     *
-     * @return Analysis
-     */
-    public function setResults($results)
-    {
-        $this->results = $results;
-
-        return $this;
-    }
-
-    /**
-     * Get results
-     *
-     * @return int
-     */
-    public function getResults()
-    {
-        return $this->results;
-    }
-
-    /**
-     * Set fkUser
-     *
-     * @param \Cardioscore\AccueilBundle\Entity\User $fkUser
-     *
-     * @return Analysis
-     */
-    public function setFkUser(\Cardioscore\AccueilBundle\Entity\User $fkUser)
-    {
-        $this->fk_user = $fkUser;
-
-        return $this;
-    }
-
-    /**
-     * Get fkUser
-     *
-     * @return \Cardioscore\AccueilBundle\Entity\User
-     */
-    public function getFkUser()
-    {
-        return $this->fk_user;
-    }
-
-    /**
-     * Set diversity
-     *
-     * @param integer $diversity
-     *
-     * @return Analysis
-     */
-    public function setDiversity($diversity)
-    {
-        $this->diversity = $diversity;
-
-        return $this;
-    }
-
-    /**
-     * Get diversity
-     *
-     * @return integer
-     */
-    public function getDiversity()
-    {
-        return $this->diversity;
-    }
-
-    /**
-     * Set richness
-     *
-     * @param integer $richness
-     *
-     * @return Analysis
-     */
-    public function setRichness($richness)
-    {
-        $this->richness = $richness;
-
-        return $this;
-    }
-
-    /**
-     * Get richness
-     *
-     * @return integer
-     */
-    public function getRichness()
-    {
-        return $this->richness;
-    }
-
-    /**
-     * Set user
-     *
-     * @param \Cardioscore\AccueilBundle\Entity\User $user
-     *
-     * @return Analysis
-     */
-    public function setUser(\Cardioscore\AccueilBundle\Entity\User $user)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \Cardioscore\AccueilBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
     }
 }

@@ -22,25 +22,60 @@ class Analysis
     private $id;
 
     /**
-     * @var int
+     * @var float
      *
-     * @ORM\Column(name="ratio_omega", type="integer")
+     * @ORM\Column(name="total_cholesterol", type="float")
+     */
+    private $total_cholesterol;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="hdl_cholesterol", type="float")
+     */
+    private $hdl_cholesterol;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="systolic_bp", type="float")
+     */
+    private $systolic_bp;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="treated_blood_pressure", type="boolean")
+     */
+    private $treated_blood_pressure;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="ratio_omega", type="float")
      */
     private $ratioOmega;
 
     /**
-     * @var int
+     * @var float
      *
-     * @ORM\Column(name="index_o3", type="integer")
+     * @ORM\Column(name="index_o3", type="float")
      */
     private $indexO3;
 
     /**
-     * @var int
+     * @var float
      *
-     * @ORM\Column(name="aa_epa", type="integer")
+     * @ORM\Column(name="aa_epa", type="float")
      */
     private $aaEpa;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="omeganemie", type="boolean")
+     */
+    private $omeganemie;
 
     /**
      * @var int
@@ -50,32 +85,46 @@ class Analysis
     private $ratioFd;
 
     /**
-     * @var int
+     * @var float
      *
-     * @ORM\Column(name="ratio_waist_weight", type="integer")
+     * @ORM\Column(name="ratio_waist_weight", type="float")
      */
     private $ratioWaistWeight;
 
     /**
-     * @var int
+     * @var bool
      *
-     * @ORM\Column(name="results", type="integer")
+     * @ORM\Column(name="ubiote", type="boolean")
      */
-    private $results;
+    private $ubiote;
 
     /**
-     * @var int
+     * @var bool
      *
-     * @ORM\Column(name="diversity", type="integer")
+     * @ORM\Column(name="ubiote_fb", type="boolean")
      */
-    private $diversity;
+    private $ubiote_fb;
 
     /**
-     * @var int
+     * @var bool
      *
-     * @ORM\Column(name="richness", type="integer")
+     * @ORM\Column(name="ubiote_diversity", type="boolean")
      */
-    private $richness;
+    private $ubiote_diversity;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="ubiote_richness", type="boolean")
+     */
+    private $ubiote_richness;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_date", type="date")
+     */
+    private $created_date;
 
     /**
 	 * @ORM\ManyToOne(targetEntity="Cardioscore\AccueilBundle\Entity\User", inversedBy="analysis")
@@ -95,9 +144,105 @@ class Analysis
     }
 
     /**
+     * Set totalCholesterol
+     *
+     * @param float $totalCholesterol
+     *
+     * @return Analysis
+     */
+    public function setTotalCholesterol($totalCholesterol)
+    {
+        $this->total_cholesterol = $totalCholesterol;
+
+        return $this;
+    }
+
+    /**
+     * Get totalCholesterol
+     *
+     * @return float
+     */
+    public function getTotalCholesterol()
+    {
+        return $this->total_cholesterol;
+    }
+
+    /**
+     * Set hdlCholesterol
+     *
+     * @param float $hdlCholesterol
+     *
+     * @return Analysis
+     */
+    public function setHdlCholesterol($hdlCholesterol)
+    {
+        $this->hdl_cholesterol = $hdlCholesterol;
+
+        return $this;
+    }
+
+    /**
+     * Get hdlCholesterol
+     *
+     * @return float
+     */
+    public function getHdlCholesterol()
+    {
+        return $this->hdl_cholesterol;
+    }
+
+    /**
+     * Set systolicBp
+     *
+     * @param float $systolicBp
+     *
+     * @return Analysis
+     */
+    public function setSystolicBp($systolicBp)
+    {
+        $this->systolic_bp = $systolicBp;
+
+        return $this;
+    }
+
+    /**
+     * Get systolicBp
+     *
+     * @return float
+     */
+    public function getSystolicBp()
+    {
+        return $this->systolic_bp;
+    }
+
+    /**
+     * Set treatedBloodPressure
+     *
+     * @param boolean $treatedBloodPressure
+     *
+     * @return Analysis
+     */
+    public function setTreatedBloodPressure($treatedBloodPressure)
+    {
+        $this->treated_blood_pressure = $treatedBloodPressure;
+
+        return $this;
+    }
+
+    /**
+     * Get treatedBloodPressure
+     *
+     * @return boolean
+     */
+    public function getTreatedBloodPressure()
+    {
+        return $this->treated_blood_pressure;
+    }
+
+    /**
      * Set ratioOmega
      *
-     * @param integer $ratioOmega
+     * @param float $ratioOmega
      *
      * @return Analysis
      */
@@ -111,7 +256,7 @@ class Analysis
     /**
      * Get ratioOmega
      *
-     * @return int
+     * @return float
      */
     public function getRatioOmega()
     {
@@ -121,7 +266,7 @@ class Analysis
     /**
      * Set indexO3
      *
-     * @param integer $indexO3
+     * @param float $indexO3
      *
      * @return Analysis
      */
@@ -135,7 +280,7 @@ class Analysis
     /**
      * Get indexO3
      *
-     * @return int
+     * @return float
      */
     public function getIndexO3()
     {
@@ -145,7 +290,7 @@ class Analysis
     /**
      * Set aaEpa
      *
-     * @param integer $aaEpa
+     * @param float $aaEpa
      *
      * @return Analysis
      */
@@ -159,11 +304,35 @@ class Analysis
     /**
      * Get aaEpa
      *
-     * @return int
+     * @return float
      */
     public function getAaEpa()
     {
         return $this->aaEpa;
+    }
+
+    /**
+     * Set omeganemie
+     *
+     * @param boolean $omeganemie
+     *
+     * @return Analysis
+     */
+    public function setOmeganemie($omeganemie)
+    {
+        $this->omeganemie = $omeganemie;
+
+        return $this;
+    }
+
+    /**
+     * Get omeganemie
+     *
+     * @return boolean
+     */
+    public function getOmeganemie()
+    {
+        return $this->omeganemie;
     }
 
     /**
@@ -183,7 +352,7 @@ class Analysis
     /**
      * Get ratioFd
      *
-     * @return int
+     * @return integer
      */
     public function getRatioFd()
     {
@@ -193,7 +362,7 @@ class Analysis
     /**
      * Set ratioWaistWeight
      *
-     * @param integer $ratioWaistWeight
+     * @param float $ratioWaistWeight
      *
      * @return Analysis
      */
@@ -207,7 +376,7 @@ class Analysis
     /**
      * Get ratioWaistWeight
      *
-     * @return int
+     * @return float
      */
     public function getRatioWaistWeight()
     {
@@ -215,99 +384,123 @@ class Analysis
     }
 
     /**
-     * Set results
+     * Set ubiote
      *
-     * @param integer $results
+     * @param boolean $ubiote
      *
      * @return Analysis
      */
-    public function setResults($results)
+    public function setUbiote($ubiote)
     {
-        $this->results = $results;
+        $this->ubiote = $ubiote;
 
         return $this;
     }
 
     /**
-     * Get results
+     * Get ubiote
      *
-     * @return int
+     * @return boolean
      */
-    public function getResults()
+    public function getUbiote()
     {
-        return $this->results;
+        return $this->ubiote;
     }
 
     /**
-     * Set fkUser
+     * Set ubioteFb
      *
-     * @param \Cardioscore\AccueilBundle\Entity\User $fkUser
+     * @param boolean $ubioteFb
      *
      * @return Analysis
      */
-    public function setFkUser(\Cardioscore\AccueilBundle\Entity\User $fkUser)
+    public function setUbioteFb($ubioteFb)
     {
-        $this->fk_user = $fkUser;
+        $this->ubiote_fb = $ubioteFb;
 
         return $this;
     }
 
     /**
-     * Get fkUser
+     * Get ubioteFb
      *
-     * @return \Cardioscore\AccueilBundle\Entity\User
+     * @return boolean
      */
-    public function getFkUser()
+    public function getUbioteFb()
     {
-        return $this->fk_user;
+        return $this->ubiote_fb;
     }
 
     /**
-     * Set diversity
+     * Set ubioteDiversity
      *
-     * @param integer $diversity
+     * @param boolean $ubioteDiversity
      *
      * @return Analysis
      */
-    public function setDiversity($diversity)
+    public function setUbioteDiversity($ubioteDiversity)
     {
-        $this->diversity = $diversity;
+        $this->ubiote_diversity = $ubioteDiversity;
 
         return $this;
     }
 
     /**
-     * Get diversity
+     * Get ubioteDiversity
      *
-     * @return integer
+     * @return boolean
      */
-    public function getDiversity()
+    public function getUbioteDiversity()
     {
-        return $this->diversity;
+        return $this->ubiote_diversity;
     }
 
     /**
-     * Set richness
+     * Set ubioteRichness
      *
-     * @param integer $richness
+     * @param boolean $ubioteRichness
      *
      * @return Analysis
      */
-    public function setRichness($richness)
+    public function setUbioteRichness($ubioteRichness)
     {
-        $this->richness = $richness;
+        $this->ubiote_richness = $ubioteRichness;
 
         return $this;
     }
 
     /**
-     * Get richness
+     * Get ubioteRichness
      *
-     * @return integer
+     * @return boolean
      */
-    public function getRichness()
+    public function getUbioteRichness()
     {
-        return $this->richness;
+        return $this->ubiote_richness;
+    }
+
+    /**
+     * Set createdDate
+     *
+     * @param \DateTime $createdDate
+     *
+     * @return Analysis
+     */
+    public function setCreatedDate($createdDate)
+    {
+        $this->created_date = $createdDate;
+
+        return $this;
+    }
+
+    /**
+     * Get createdDate
+     *
+     * @return \DateTime
+     */
+    public function getCreatedDate()
+    {
+        return $this->created_date;
     }
 
     /**
