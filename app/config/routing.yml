@@ -1,3 +1,8 @@
+cardioscore_accueil:
+    resource: "@CardioscoreAccueilBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
