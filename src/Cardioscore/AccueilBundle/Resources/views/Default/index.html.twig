@@ -1,1 +1,84 @@
-Hello World!
+{% block header %}
+<html>
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="../../../public/css/materialize.min.css"></script>
+    <script src="../../../public/css/materialize.css"></script>
+    <script src="../../../public/css/style.css"></script>
+    <title>CardioScore</title>
+</head>
+<body class="grey darken-3">
+<nav class="red">
+    <div class="container">
+        <div class="nav-wrapper center">
+            <ul class="hide-on-med-and-down">
+                <li><a href="#">Accueil</a></li>
+                <li><a href="#">Calcul</a></li>
+                <li><a href="#">Contacts</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+{% endblock %}
+
+<div class="card hoverable active">
+    {{ form_start(formUser) }}
+    <div class="card-title center"><h5 class="red-text">Calcul de votre risque de maladie cardiovasculaire</h5></div>
+    <div class="card-content">
+        <div class="row s12">
+            <div class="input-field s6">
+                {{ form_label(formUser.sex) }}
+                {{ form_widget(formUser.sex) }}
+            </div>
+            <div class="input-field s6">
+                {{ form_label(formUser.birthDate) }}
+                {{ form_widget(formUser.birthDate) }}
+            </div>
+        </div>
+
+        <div class="row" s12>
+            <div class="input-field s4">
+                {{ form_label(formUser.height) }}
+                {{ form_widget(formUser.height) }}
+            </div>
+            <div class="input-field s4">
+                {{ form_label(formUser.weight) }}
+                {{ form_widget(formUser.weight) }}
+            </div>
+            <div class="input-field s4">
+                {{ form_label(formUser.waist) }}
+                {{ form_widget(formUser.waist) }}
+            </div>
+        </div>
+
+        <div class="row s12">
+            <div class="input-field">
+                {{ form_label(formUser.smoker) }}
+                {{ form_widget(formUser.smoker) }}
+            </div>
+        </div>
+
+    </div>
+    <div class="card-action center">
+        <button class="btn waves-effect waves-light red" type="reset"> <i class="prefix material-icons">cancel</i>Réinitialisation</button>
+        <button class="btn waves-effect waves-light red" type="submit"> <i class="prefix material-icons">send</i>Calculer</button>
+    </div>
+    {{ form_end(formUser) }}
+</div>
+
+{% block footer %}
+</div>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="../../../public/js/materialize.min.js"></script>
+<script src="../../../public/js/materialize.js"></script>
+<script src="../../../public/js/init.js"></script>
+</body>
+</html>
+{% endblock %}
