@@ -19,15 +19,33 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('sex', ChoiceType::class, array('required'=>true))
-            ->add('birthDate', DateType::class, [
+            ->add('sex', ChoiceType::class, array(
+                'label' => 'Sexe : ',
+                'choices' => array(
+                    'homme' => true,
+                    'femme' => false
+                ),
+                'required'=>true))
+            ->add('birthDate', DateType::class, array(
+                'label'  => 'Date d\'anniversaire : ',
                 "widget" => "single_text"
-            ])
-            ->add('height', IntegerType::class)
-            ->add('weight', IntegerType::class)
-            ->add('waist', IntegerType::class)
-            ->add('smoker', ChoiceType::class)
-            ->add('Calculer', SubmitType::class)
+            ))
+            ->add('height', IntegerType::class, array(
+                'label' => 'Taille : '
+            ))
+            ->add('weight', IntegerType::class, array(
+                'label' => 'Poids : '
+            ))
+            ->add('waist', IntegerType::class, array(
+                'label' => 'Tour de taille : '
+            ))
+            ->add('smoker', ChoiceType::class, array(
+                'label' => 'Fumeur : ',
+                'choices'   => array(
+                    'Oui'   => true,
+                    'Non'   => false
+                ))
+            )
         ;
     }
     
