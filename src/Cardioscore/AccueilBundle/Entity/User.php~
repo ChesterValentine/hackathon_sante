@@ -64,6 +64,13 @@ class User
     private $smoker;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="diabetes", type="boolean")
+     */
+    private $diabetes;
+
+    /**
 	* @ORM\OneToMany(targetEntity="Cardioscore\AccueilBundle\Entity\Analysis", cascade={"persist"}, mappedBy="user")
 	* @ORM\JoinColumn(nullable=false)
 	*/

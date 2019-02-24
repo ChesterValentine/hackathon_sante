@@ -127,6 +127,13 @@ class Analysis
     private $created_date;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="treated_diabetes", type="boolean")
+     */
+    private $treated_diabetes;
+
+    /**
 	 * @ORM\ManyToOne(targetEntity="Cardioscore\AccueilBundle\Entity\User", inversedBy="analysis")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -525,5 +532,29 @@ class Analysis
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set treatedDiabetes
+     *
+     * @param boolean $treatedDiabetes
+     *
+     * @return Analysis
+     */
+    public function setTreatedDiabetes($treatedDiabetes)
+    {
+        $this->treated_diabetes = $treatedDiabetes;
+
+        return $this;
+    }
+
+    /**
+     * Get treatedDiabetes
+     *
+     * @return boolean
+     */
+    public function getTreatedDiabetes()
+    {
+        return $this->treated_diabetes;
     }
 }
