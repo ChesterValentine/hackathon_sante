@@ -116,13 +116,13 @@ class DefaultController extends Controller
         $bSex = $_POST['sex'];
         $bTreated = $_POST['treated'];
         $bSmoker = $_POST['smoker'];
-        $fTotalChol $_POST['total_cholesterol'];
+        $fTotalChol = $_POST['total_cholesterol'];
         $fHDLChol = $_POST['hdl_cholesterol'];
         $fSystolicBp = $_POST['systolic_bp'];
 
         $iAge = $_POST['age'];
         $iHeight = $_POST['height'];
-        $iWaist = $_POST['waist']
+        $iWaist = $_POST['waist'];
 
 
         if($bSex)
