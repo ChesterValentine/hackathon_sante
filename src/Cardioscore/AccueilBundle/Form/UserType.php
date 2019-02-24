@@ -9,6 +9,8 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Cardioscore\AccueilBundle\Form\AnalysisType;
 
 class UserType extends AbstractType
 {
@@ -45,6 +47,15 @@ class UserType extends AbstractType
                     'Fumeur'   => true,
                     'Non fumeur'   => false
                 ))
+            )
+            ->add('analysis', CollectionType::class, 
+                array(
+                    'label' => 'Analyse',
+                    'entry_type' => AnalysisType::class,
+                    'allow_add' => false,
+                    'allow_delete' => false,
+                    'by_reference' => false
+                )
             )
         ;
     }

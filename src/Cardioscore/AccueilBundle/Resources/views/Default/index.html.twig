@@ -59,9 +59,13 @@
             </div>
         </div>
 
-        <div class="row s12">
-            <div class="input-field">
+        <div class="row" s12>
+            <div class="input-field s4">
                 {{ form_widget(formUser.smoker, {'attr': {'style': 'display: block'}}) }}
+            </div>
+            <div class="input-field s4">
+                {{ form_label(formUser.analysis) }}
+                {{ form_widget(formUser.analysis) }}
             </div>
         </div>
 
