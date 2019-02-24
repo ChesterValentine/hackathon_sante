@@ -39,10 +39,7 @@ class DefaultController extends Controller
     {
         $post = $_POST['user'];
         
-        return new JsonResponse( [
-            'iResult' => 30,
-            'sMessage' => 'Elevé'
-        ]);
+        //var_dump($post);
         
         define('FACTEUR_RISQUE_OMEGANEMIE',0.33); //modifier la valeur du milieu
         define('FACTEUR_RISQUE_UBIOTE',0.33);//modifier la valeur du milieu
@@ -56,9 +53,9 @@ class DefaultController extends Controller
         si ces trois valeurs sont bonnes l'omeganemie est égale à 0
         si une seule de ces valeurs est mauvaise l'omeganemie est égale à 1
         */
-        $RatioO6O3 = $post['user']['analysis']['ratio_o6o3'];//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true 
-        $IndexO3 = $post['user']['analysis']['index_o3'];//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
-        $AA_EPA = $post['user']['analysis']['aa_fpa'];//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
+        $RatioO6O3 = $post['analysis'][0]['ratioOmega'];//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true 
+        $IndexO3 = $post['analysis'][0]['indexO3'];//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
+        $AA_EPA = $post['analysis'][0]['aaEpa'];//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
         $iOmeganemie = 0;
 
         //test pour savoir si l'on prend en compte le facteur d'omeganemie dans le calcul
@@ -79,9 +76,9 @@ class DefaultController extends Controller
         si ces trois valeurs sont bonnes les Ubiotes est égale à 0
         si une seule de ces valeurs est mauvaise les Ubiotes est égale à 1
         */
-        $UbioteFB = $post['user']['analysis']['ubiote_fb'];//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
-        $UbiotteDiversite = $post['user']['analysis']['ubiote_diversite'];//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
-        $UbioteRichesse = $post['user']['analysis']['ubiote_richesse'];//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
+        $UbioteFB = $post['analysis'][0]['ubiote_fb'];//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
+        $UbiotteDiversite = $post['analysis'][0]['ubiote_diversity'];//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
+        $UbioteRichesse = $post['analysis'][0]['ubiote_richness'];//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
         $iUbiotes = 0;
 
         //test pour savoir si l'on prend en compte le facteur d'omeganemie dans le calcul
@@ -93,24 +90,27 @@ class DefaultController extends Controller
         {
             $iUbiotes = 1;
         }
-        if(UbioteRichesse > MAX_UBIOTERICHESSE) // info à recup
+        if($UbioteRichesse > MAX_UBIOTERICHESSE) // info à recup
         {
             $iUbiotes = 1;
         }
 
         //Ration Tout de taille/taille
-        $iHeight = $post['user']['height'];
-        $iWaist = $post['user']['waist'];
+        $iHeight = $post['height'];
+        $iWaist = $post['waist'];
         $fRatioWaistHeight = $iWaist/$iHeight;
 
-        $bSex = $post['user']['sex'];
-        $bTreatedTens = $post['user']['analysis']['treated'];
-        $bSmoker = $post['user']['smoker'];
-        $fTotalChol = $post['user']['analysis']['total_cholesterol'];
-        $fHDLChol = $post['user']['analysis']['hdl_cholesterol'];
-        $fSystolicBp = $post['user']['analysis']['systolic_bp'];
+        $bSex = $post['sex'];
+        $bTreatedTens = $post['analysis'][0]['treated_blood_pressure'];
+        $bSmoker = $post['smoker'];
+        $fTotalChol = $post['analysis'][0]['total_cholesterol'];
+        $fHDLChol = $post['analysis'][0]['hdl_cholesterol'];
+        $fSystolicBp = $post['analysis'][0]['systolic_bp'];
 
-        $iAge = $post['user']['age'];
+        
+        $iAge = date('Y') - date('Y', strtotime($post['birthDate']));
+        //$date = new \DateTime($post['birthDate']);
+        //$post['birthDate']= $date->diff(new \DateTime())->format('%Y');
 
         if($bSex)
         {
@@ -159,12 +159,35 @@ class DefaultController extends Controller
             $sMessage .= 'Très faible.';
         }
 
-        return new JsonResponse(array('data' => json_encode(
+        //Persister les données dans la BDD
+        $em = $this->getDoctrine()->getManager();
+        $user = new User();
+        $analysis = new Analysis();
+
+        $user->setSex($bSex);
+        $user->setBirthDate(new \DateTime($post['birthDate']));
+        $user->setHeight($iHeight);
+        $user->setWeight($post["weight"]);
+        $user->setWaist($iWaist);
+        $user->setSmoker($bSmoker);
+        $user->setDiabetes($post['diabetes']);
+
+        //Persistance des données et récup de l'id user
+        $recupIdUser = $em->persist($user);
+        $em->persist($user);        
+        $em->flush();
+
+        //$analysis->setTotalCholesterol();
+        //$analysis->setHdlCholesterol();
+        //$analysis->setSystolicBp();
+        //$analysis->setTreatedBloodPressure();
+
+        return new JsonResponse(array(
             [
                 'fPercent' => $p * 100,
                 'sMessage' => $sMessage
             ]
-        )));
+        ));
     }
     
 }
