@@ -2,8 +2,9 @@
 
 namespace Cardioscore\AccueilBundle\Controller;
 
+use Cardioscore\AccueilBundle\Entity\User;
 use Cardioscore\AccueilBundle\Form\UserType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Cardioscore\AccueilBundle\Entity\Analysis;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -22,33 +23,14 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $user = new User();
+        $analyse = new Analysis();
+        $user->addAnalysi($analyse);
         $formUser = $this->createForm("Cardioscore\AccueilBundle\Form\UserType", $user);
 
         $data = array(
             'formUser' => $formUser->createView()
         );
         return $this->render('CardioscoreAccueilBundle:Default:index.html.twig', $data);
-    }
-
-    /**
-     * @Route("/calculUser", name="CardioscoreAccueilBundle_calculUser")
-     * @Method("POST")
-     * @Template()
-     */
-    public function calculUserAction(Request $request)
-    {
-        $user = new User();
-        $form = $this->createForm("Cardioscore\AccueilBundle\Form\UserType", $user);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid())
-        {
-            //Calcul
-
-            //return $this->redirectToRoute("CardioscoreAccueilBundle_index");
-        }
-
-        return array("form" => $form->createView());
     }
 
     /**

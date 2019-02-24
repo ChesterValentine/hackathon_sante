@@ -64,6 +64,13 @@ class User
     private $smoker;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="diabetes", type="boolean")
+     */
+    private $diabetes;
+
+    /**
 	* @ORM\OneToMany(targetEntity="Cardioscore\AccueilBundle\Entity\Analysis", cascade={"persist"}, mappedBy="user")
 	* @ORM\JoinColumn(nullable=false)
 	*/
@@ -263,5 +270,29 @@ class User
     public function getAnalysis()
     {
         return $this->analysis;
+    }
+
+    /**
+     * Set diabetes
+     *
+     * @param boolean $diabetes
+     *
+     * @return User
+     */
+    public function setDiabetes($diabetes)
+    {
+        $this->diabetes = $diabetes;
+
+        return $this;
+    }
+
+    /**
+     * Get diabetes
+     *
+     * @return boolean
+     */
+    public function getDiabetes()
+    {
+        return $this->diabetes;
     }
 }

@@ -23,8 +23,7 @@
         <div class="nav-wrapper center">
             <ul class="hide-on-med-and-down">
                 <li><a href="#">Accueil</a></li>
-                <li><a href="#">Calcul</a></li>
-                <li><a href="#">Contacts</a></li>
+                <li><a href="#">À propos</a></li>
             </ul>
         </div>
     </div>
@@ -60,9 +59,71 @@
             </div>
         </div>
 
-        <div class="row s12">
-            <div class="input-field">
+        <div class="row" s12>
+            <div class="input-field s4">
                 {{ form_widget(formUser.smoker, {'attr': {'style': 'display: block'}}) }}
+            </div>
+            <div class="input-field s4">
+                {{ form_widget(formUser.diabetes, {'attr': {'style': 'display: block'}}) }}
+            </div>
+            <!--Pour plus tard : à afficher uniquement si la personne déclare avoir été diabétique-->
+            <div class="input-field s4">
+                {{ form_widget(formUser.analysis[0].treated_diabetes) }}
+            </div>
+        </div>
+        <div class="row s12">
+            <div class="input-field s4">
+                {{ form_label(formUser.analysis[0].total_cholesterol) }}
+                {{ form_widget(formUser.analysis[0].total_cholesterol) }}
+            </div>
+            <div class="input-field s4">
+                {{ form_label(formUser.analysis[0].hdl_cholesterol) }}
+                {{ form_widget(formUser.analysis[0].hdl_cholesterol) }}
+            </div>
+            <div class="input-field s4">
+                {{ form_label(formUser.analysis[0].systolic_bp) }}
+                {{ form_widget(formUser.analysis[0].systolic_bp) }}
+            </div>
+        </div>
+        <div class="row s12">
+            <div class="input-field s4">
+                {{ form_widget(formUser.analysis[0].treated_blood_pressure) }}
+            </div>
+            <div class="input-field s4">
+                {{ form_label(formUser.analysis[0].ratioOmega) }}
+                {{ form_widget(formUser.analysis[0].ratioOmega) }}
+            </div>
+            <div class="input-field s4">
+                {{ form_label(formUser.analysis[0].indexO3) }}
+                {{ form_widget(formUser.analysis[0].indexO3) }}
+            </div>
+        </div>
+        <div class="row s12">
+            <div class="input-field s4">
+                {{ form_label(formUser.analysis[0].aaEpa) }}
+                {{ form_widget(formUser.analysis[0].aaEpa) }}
+            </div>
+            <div class="input-field s4">
+                {{ form_label(formUser.analysis[0].ratioFd) }}
+                {{ form_widget(formUser.analysis[0].ratioFd) }}
+            </div>
+            <div class="input-field s4">
+                {{ form_label(formUser.analysis[0].ratioWaistWeight) }}
+                {{ form_widget(formUser.analysis[0].ratioWaistWeight) }}
+            </div>
+        </div>
+        <div class="row s12">
+            <div class="input-field s4">
+                {{ form_label(formUser.analysis[0].ubiote_fb) }}
+                {{ form_widget(formUser.analysis[0].ubiote_fb) }}
+            </div>
+            <div class="input-field s4">
+                {{ form_label(formUser.analysis[0].ubiote_diversity) }}
+                {{ form_widget(formUser.analysis[0].ubiote_diversity) }}
+            </div>
+            <div class="input-field s4">
+                {{ form_label(formUser.analysis[0].ubiote_richness) }}
+                {{ form_widget(formUser.analysis[0].ubiote_richness) }}
             </div>
         </div>
 
@@ -71,7 +132,7 @@
         <button class="btn waves-effect waves-light red" type="reset"> <i class="prefix material-icons">cancel</i>Réinitialisation</button>
         <button class="btn waves-effect waves-light red" id="submit" type="submit"> <i class="prefix material-icons">send</i>Calculer</button>
     </div>
-    {{ form_end(formUser) }}
+    {# {{ form_end(formUser) }} #}
 </div>
 
 {% block footer %}
