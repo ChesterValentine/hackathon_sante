@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class AnalysisType extends AbstractType
 {
@@ -25,8 +26,13 @@ class AnalysisType extends AbstractType
             ->add('systolic_bp', IntegerType::class, array(
                 'label' => 'Tension'
             ))
-            ->add('treated_blood_pressure', IntegerType::class, array(
-                'label' => 'Traitement pour la tension : '
+            ->add('treated_blood_pressure', ChoiceType::class, array(
+                'label' => 'Traitement pour la tension : ',
+                'choices'   => array(
+                    'Tension traitée'   => true,
+                    'Tension non traitée'   => false
+                ),
+                'attr'=> array('style' => 'display: block')
             ))
             ->add('ratioOmega', IntegerType::class, array(
                 'label' => 'Ratio omega : '
@@ -51,6 +57,14 @@ class AnalysisType extends AbstractType
             ))
             ->add('ubiote_richness', IntegerType::class, array(
                 'label' => 'Ubiote richessse : '
+            ))
+            ->add('treated_diabetes', ChoiceType::class, array(
+                'label' => 'Diabète traité : ',
+                'choices'   => array(
+                    'Traiment diabète' => true,
+                    'Pas de traitement diabète' => false
+                ),
+                'attr'=> array('style' => 'display: block')
             ))
         ;
     }

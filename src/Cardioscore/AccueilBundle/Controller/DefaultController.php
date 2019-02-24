@@ -4,6 +4,7 @@ namespace Cardioscore\AccueilBundle\Controller;
 
 use Cardioscore\AccueilBundle\Entity\User;
 use Cardioscore\AccueilBundle\Form\UserType;
+use Cardioscore\AccueilBundle\Entity\Analysis;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -18,6 +19,8 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $user = new User();
+        $analyse = new Analysis();
+        $user->addAnalysi($analyse);
         $formUser = $this->createForm("Cardioscore\AccueilBundle\Form\UserType", $user);
 
         $data = array(

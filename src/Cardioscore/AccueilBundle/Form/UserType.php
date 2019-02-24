@@ -48,6 +48,13 @@ class UserType extends AbstractType
                     'Non fumeur'   => false
                 ))
             )
+            ->add('diabetes', ChoiceType::class, array(
+                'label' => 'Diabète : ',
+                'choices'   => array(
+                    'Diabétique'   => true,
+                    'Non diabétique'   => false
+                ))
+            )
             ->add('analysis', CollectionType::class, 
                 array(
                     'label' => 'Analyse',
