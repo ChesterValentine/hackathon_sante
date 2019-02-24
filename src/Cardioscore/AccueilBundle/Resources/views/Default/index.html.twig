@@ -14,6 +14,7 @@
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <script src="../../../public/css/style.css"></script>
+    
     <title>CardioScore</title>
 </head>
 <body class="grey darken-3">
@@ -32,7 +33,7 @@
 {% endblock %}
 
 <div class="card hoverable active">
-    {{ form_start(formUser) }}
+    {{ form_start(formUser, {'attr': {'id': 'form_an'}}) }}
     <div class="card-title center"><h5 class="red-text">Calcul de votre risque de maladie cardiovasculaire</h5></div>
     <div class="card-content">
         <div class="row s12">
@@ -68,7 +69,7 @@
     </div>
     <div class="card-action center">
         <button class="btn waves-effect waves-light red" type="reset"> <i class="prefix material-icons">cancel</i>Réinitialisation</button>
-        <button class="btn waves-effect waves-light red" type="submit"> <i class="prefix material-icons">send</i>Calculer</button>
+        <button class="btn waves-effect waves-light red" id="submit" type="submit"> <i class="prefix material-icons">send</i>Calculer</button>
     </div>
     {{ form_end(formUser) }}
 </div>
@@ -76,6 +77,39 @@
 {% block footer %}
 </div>
 <script src="../../../public/js/init.js"></script>
+<script>
+$.fn.serializeObject = function()
+{
+   var o = {};
+   var a = this.serializeArray();
+   console.log(a);
+   $.each(a, function() {
+       if (o[this.name]) {
+           if (!o[this.name].push) {
+               o[this.name] = [o[this.name]];
+           }
+           o[this.name].push(this.value || '');
+       } else {
+           o[this.name] = this.value || '';
+       }
+   });
+   return o;
+};
+
+$('#form_an').on('submit', function(event) {
+    event.preventDefault();
+    var form = $(this).serialize();
+    console.log(form);
+    $.ajax({
+       type: "POST",
+       url: "{{path('ajax_calc')}}",
+       data: form,
+       success: function(data) {
+            console.log(data);
+        }
+    });
+});
+</script>
 </body>
 </html>
 {% endblock %}

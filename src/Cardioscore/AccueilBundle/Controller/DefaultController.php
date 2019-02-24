@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Cardioscore\AccueilBundle\Entity\User;
 
 class DefaultController extends Controller
@@ -52,8 +54,15 @@ class DefaultController extends Controller
     /**
      * @Route("/ajax/calc", name="ajax_calc")
      */
-    public function ajaxCalc($aUserDatas, $aAnalysisDatas)
+    public function ajaxCalc()
     {
+        $post = $_POST['user'];
+        
+        return new JsonResponse( [
+            'iResult' => 30,
+            'sMessage' => 'Elevé'
+        ]);
+        
         define('FACTEUR_RISQUE_OMEGANEMIE',0.33); //modifier la valeur du milieu
         define('FACTEUR_RISQUE_UBIOTE',0.33);//modifier la valeur du milieu
 
@@ -66,9 +75,9 @@ class DefaultController extends Controller
         si ces trois valeurs sont bonnes l'omeganemie est égale à 0
         si une seule de ces valeurs est mauvaise l'omeganemie est égale à 1
         */
-        $RatioO6O3 = $_POST['ratio_o6o3'];//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true 
-        $IndexO3 = $_POST['index_o3'];//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
-        $AA_EPA = $_POST['aa_fpa'];//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
+        $RatioO6O3 = $post['user']['analysis']['ratio_o6o3'];//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true 
+        $IndexO3 = $post['user']['analysis']['index_o3'];//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
+        $AA_EPA = $post['user']['analysis']['aa_fpa'];//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
         $iOmeganemie = 0;
 
         //test pour savoir si l'on prend en compte le facteur d'omeganemie dans le calcul
@@ -89,9 +98,9 @@ class DefaultController extends Controller
         si ces trois valeurs sont bonnes les Ubiotes est égale à 0
         si une seule de ces valeurs est mauvaise les Ubiotes est égale à 1
         */
-        $UbioteFB = $_POST['ubiote_fb'];//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
-        $UbiotteDiversite = $_POST['ubiote_diversite'];//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
-        $UbioteRichesse = $_POST['ubiote_richesse'];//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
+        $UbioteFB = $post['user']['analysis']['ubiote_fb'];//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
+        $UbiotteDiversite = $post['user']['analysis']['ubiote_diversite'];//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
+        $UbioteRichesse = $post['user']['analysis']['ubiote_richesse'];//a recup dans le formulaire et si la valeur est comprise dans l'intervalle donnée true
         $iUbiotes = 0;
 
         //test pour savoir si l'on prend en compte le facteur d'omeganemie dans le calcul
@@ -109,27 +118,24 @@ class DefaultController extends Controller
         }
 
         //Ration Tout de taille/taille
-        $iHeight = $_POST['height'];
-        $iWaist = $_POST['waist'];
+        $iHeight = $post['user']['height'];
+        $iWaist = $post['user']['waist'];
         $fRatioWaistHeight = $iWaist/$iHeight;
 
-        $bSex = $_POST['sex'];
-        $bTreated = $_POST['treated'];
-        $bSmoker = $_POST['smoker'];
-        $fTotalChol = $_POST['total_cholesterol'];
-        $fHDLChol = $_POST['hdl_cholesterol'];
-        $fSystolicBp = $_POST['systolic_bp'];
+        $bSex = $post['user']['sex'];
+        $bTreatedTens = $post['user']['analysis']['treated'];
+        $bSmoker = $post['user']['smoker'];
+        $fTotalChol = $post['user']['analysis']['total_cholesterol'];
+        $fHDLChol = $post['user']['analysis']['hdl_cholesterol'];
+        $fSystolicBp = $post['user']['analysis']['systolic_bp'];
 
-        $iAge = $_POST['age'];
-        $iHeight = $_POST['height'];
-        $iWaist = $_POST['waist'];
-
+        $iAge = $post['user']['age'];
 
         if($bSex)
         {
             $fMicro = 52.0096 * log($iAge) + 20.0141 * log($fTotalChol) 
             - 0.906 * log($fHDLChol) + 1.305784 * log($fSystolicBp)
-            + 0.241549 * (int)$bTreated + 12.096316 * (int)$bSmoker 
+            + 0.241549 * (int)$bTreatedTens + 12.096316 * (int)$bSmoker 
             - (4.605038 * log($iAge) * log($fTotalChol)) -(2.84367 * log($iAge) * (int)$bSmoker)
             - (2.93323 * pow($iAge, 2)) - 172.300168 + (int)$iOmeganemie * FACTEUR_RISQUE_OMEGANEMIE
             + (int)$iUbiotes * FACTEUR_RISQUE_UBIOTE + $fRatioWaistHeight;
@@ -140,7 +146,7 @@ class DefaultController extends Controller
         {
             $fMicro = 31.764 * log($iAge) + 22.4652 * log($fTotalChol) 
             - 1.1877 * log($fHDLChol) + 2.5529 * log($fSystolicBp)
-            + 0.420251 * (int)$bTreated + 13.07543 * (int)$bSmoker 
+            + 0.420251 * (int)$bTreatedTens + 13.07543 * (int)$bSmoker 
             - (5.060998 * log($iAge) * log($fTotalChol)) 
             - (2.996945 * log($iAge) * (int)$bSmoker) - 146.5933061 
             + (int)$iOmeganemie * FACTEUR_RISQUE_OMEGANEMIE + (int)$iUbiotes * FACTEUR_RISQUE_UBIOTE
